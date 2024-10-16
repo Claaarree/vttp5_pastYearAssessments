@@ -4,7 +4,6 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     public static void main(String[] args) throws IOException {
         String dirName = args[0];
         if (args.length < 0) {
@@ -41,7 +40,7 @@ public class Main {
         fr.close();
 
         //Creating a Map to store the words
-        Map <String , Map <String, Integer>> wordMap = new HashMap();
+        Map <String , Map <String, Integer>> wordMap = new HashMap<>();
         Map <String , Integer> wordDist= new HashMap<>();
         for (int i = 0; i < words.size() - 1; i++) {
             String currWord = words.get(i);
