@@ -99,6 +99,7 @@ public class Grid {
                 int count = evaluateNeighbours(parentGenGrid, x, y);
                 //System.out.println("count " + count + "position " + x +y);
                 if (count == 2) {
+                    childGenGrid[y][x] = parentGenGrid[y][x];
                     continue;
                 } else if (count == 3) {
                     childGenGrid[y][x] = true;
