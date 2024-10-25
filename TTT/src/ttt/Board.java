@@ -66,9 +66,4 @@ public ArrayList<Integer> getAvailableSpaces() {
     return availableSpaces;
 }
 
-// public void setAvailableSpaces(ArrayList<Integer> availableSpaces) {
-//     this.availableSpaces = availableSpaces;
-// }
-
-
 }

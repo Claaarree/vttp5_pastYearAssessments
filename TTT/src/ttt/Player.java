@@ -5,6 +5,7 @@ public class Player {
 
     public Player(char marker) {
         this.marker = marker;
+        
     }
 
     public char[][] playTurn(char[][] currBoard, int placement) {
@@ -43,4 +44,7 @@ public class Player {
         char[][] newBoard = currBoard;
         return newBoard;
     }
+
+
+    
 }

@@ -1,8 +1,7 @@
-package ttt;
+package minimax;
 
 import java.io.Console;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,15 +10,11 @@ public class Main {
         ArrayList<Integer> availableSpaces = board.getAvailableSpaces();
         board.printBoard(currBoard);
 
-        Player human = new Player('x');
-        Player computer = new Player('o');
-        Random random = new Random();
-        
         Console cons = System.console();
         while (board.hasEmptySpace(currBoard)) {
             String humanInput = cons.readLine("Choose an open spot to play (1-9)\n");
             int humanInputInt = Integer.parseInt(humanInput);
-            char [][] newBoard = human.playTurn(currBoard, humanInputInt);
+            char [][] newBoard = board.playTurn(currBoard, humanInputInt, board.getHuman());
             availableSpaces.remove(availableSpaces.indexOf(humanInputInt));
            // System.out.println(availableSpaces);
             board.printBoard(newBoard);
@@ -30,11 +25,11 @@ public class Main {
             } else if (!board.hasEmptySpace(currBoard)) {
                 break;
             } else {
-                //for computer playing at random spaces
-                int computerInput = random.nextInt(availableSpaces.size());
-                newBoard = computer.playTurn(currBoard, availableSpaces.get(computerInput));
+                //for computer playing using minimax
+                int computerInput = availableSpaces.indexOf(board.getBestMove(currBoard, availableSpaces));
+                newBoard = board.playTurn(currBoard, availableSpaces.get(computerInput), board.getComputer());
                 availableSpaces.remove(computerInput);
-            //System.out.println(availableSpaces);
+            System.out.println(availableSpaces);
                 board.printBoard(newBoard);
                 currBoard = newBoard;
                 if (board.isWin(currBoard)) {
