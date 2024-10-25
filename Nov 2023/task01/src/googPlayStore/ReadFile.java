@@ -10,45 +10,49 @@ public class ReadFile {
         return linesRead;
     }
 
-    public Map<Category , Map<String, Double>> readCSV(File csvFile){
-        Map<Category , Map<String, Double>> categories = new HashMap<>();
-        Map <String, Double> AppMap = new HashMap<>();;
+    public List<Category> readCSV(File csvFile) {
+        List<Category> categories = new ArrayList<>();
 
         try {
             Reader fr = new FileReader(csvFile);
             BufferedReader br = new BufferedReader(fr);
 
             String line;
-            while ((line = br.readLine()) != null){
-                //Skipping first line of headers
-                br.readLine();
+            // Skipping first line of headers
+            br.readLine();
 
+            while ((line = br.readLine()) != null) {
+            
                 linesRead++;
                 String[] lineSplit = line.split(",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)");
                 String appName = lineSplit[0];
                 String categoryName = lineSplit[1].toLowerCase();
-                Category cat = new Category(categoryName);
                 String rating = lineSplit[2];
-                if (!categories.containsKey(cat)){
-                    categories.put(cat, new HashMap<String, Double>());
-                } else{
-                    AppMap = categories.get(cat);
+
+                if (categories.size() == 0){
+                    Category cat = new Category(categoryName);
+                    categories.add(cat);
                 }
-                Double discardedLines = 0.0;
-                double ratingNumber = 0.0;
-                try {
-                    ratingNumber = Double.parseDouble(rating);
-                    AppMap.put(appName, ratingNumber);
-                    //System.out.println("in try");
-                } catch (Exception e) {
-                    if (!AppMap.containsKey("discarded")){
-                        AppMap.put("discarded", discardedLines);
-                    } else {
-                        //System.out.println("in catch");
-                        discardedLines = AppMap.get("discarded");
-                        discardedLines++;
+                
+                int helper = 0;
+                for(int i = 0 ; i < categories.size(); i++){
+                    if (!categoryName.equals((categories.get(i)).getCatName())){
+                        helper++;
                     }
-                } 
+                }
+                if (helper == categories.size()) {
+                    categories.add(new Category(categoryName));
+                }
+
+                // System.out.println(categories);
+                
+                for(int i = 0 ; i < categories.size(); i++){
+                    double ratingNumber = Double.parseDouble(rating);
+                    if ((categories.get(i)).getCatName().equals(categoryName)){
+                        categories.get(i).addToMap(appName, ratingNumber);
+                    }
+                }   
+
             }
             br.close();
             fr.close();
@@ -60,7 +64,7 @@ public class ReadFile {
             System.out.println(e);
             e.printStackTrace();
         }
+        
         return categories;
-
     }
 }
