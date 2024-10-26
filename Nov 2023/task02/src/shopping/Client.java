@@ -27,11 +27,11 @@ public class Client {
         String line;
         String requestID = "";
         int item_count = 0;
-        int budget = 0;
+        double budget = 0;
         List <Integer> productID = new ArrayList<>();
         List <String> title = new ArrayList<>();
-        List<Integer> price = new ArrayList<>();
-        List <Integer> rating = new ArrayList<>();
+        List<Double> price = new ArrayList<>();
+        List <Double> rating = new ArrayList<>();
         while ((line = br.readLine()) != null) {
             System.out.println(line);
             //System.out.println("after line");
@@ -49,7 +49,7 @@ public class Client {
                         break;
             
                     case "budget":
-                        budget = Integer.parseInt(dataToAdd);
+                        budget = Double.parseDouble(dataToAdd);
                         break;
             
                     case "prod_id":
@@ -61,11 +61,11 @@ public class Client {
                         break;
             
                     case "price":
-                        price.add(Integer.parseInt(dataToAdd));
+                        price.add(Double.parseDouble(dataToAdd));
                         break;
             
                     case "rating":
-                        rating.add(Integer.parseInt(dataToAdd));
+                        rating.add(Double.parseDouble(dataToAdd));
                         //System.out.println(rating);
                         break;
             
@@ -128,7 +128,8 @@ public class Client {
         bw.write("client_end\n");
         bw.flush();
 
-        br.readLine();
+        //br.readLine(); 
+        //if using own server, uncomment line above
         String statusMessage = br.readLine();
         System.out.println(statusMessage);
     }

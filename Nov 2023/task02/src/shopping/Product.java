@@ -6,10 +6,10 @@ import java.util.*;
 public class Product {
     private int prodID;
     private String title;
-    private int price;
-    private int rating;
+    private double price;
+    private double rating;
 
-    public Product(int prodID, String title, int price, int rating) {
+    public Product(int prodID, String title, double price, double rating) {
         this.prodID = prodID;
         this.title = title;
         this.price = price;
@@ -26,11 +26,11 @@ public class Product {
         return title;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
